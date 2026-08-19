@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="Engine/Engine.csproj" />
+  <Project Path="MinecraftRPG/MinecraftRPG.csproj" />
+</Solution>
