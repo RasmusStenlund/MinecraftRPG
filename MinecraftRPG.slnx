@@ -1,4 +1,4 @@
 <Solution>
-  <Project Path="Engine/Engine.csproj" />
-  <Project Path="MinecraftRPG/MinecraftRPG.csproj" />
+  <Project Path="Engine/Engine.csproj" Id="41242e58-af44-4caa-a36b-8d91757d5beb" />
+  <Project Path="MinecraftRPG/MinecraftRPG.csproj" Id="958b9e1a-32bc-4a6d-9390-4d1718df676d" />
 </Solution>
