@@ -6,14 +6,21 @@ using System.Threading.Tasks;
 
 namespace Engine
 {
-    internal class Mob
+    public class Mob : LivingCreature
     {
         public int ID { get; set; }
         public string Name { get; set; }
-        public int MaximumHitPoints { get; set; }
-        public int CurrentHitPoints { get; set; }
         public int MaximumDamage { get; set; }
         public int RewardExperiencePoints { get; set; }
         public int RewardEmeralds { get; set; }
+
+        public Mob(int id, string name, int maximumDamage, int rewardExperiencePoints, int rewardEmeralds, int currentHitPoints, int maximumHitPoints) : base(currentHitPoints, maximumHitPoints)
+        {
+            ID = id;
+            Name = name;
+            MaximumDamage = maximumDamage;
+            RewardExperiencePoints = rewardExperiencePoints;
+            RewardEmeralds = rewardEmeralds;
+        }
     }
 }
