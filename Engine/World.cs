@@ -38,7 +38,7 @@ namespace Engine
         public const int LOCATION_ID_CLERIC_GARDEN = 5;
         public const int LOCATION_ID_FARMER_HOUSE = 6;
         public const int LOCATION_ID_WHEAT_FIELD = 7;
-        public const int LOCATION_ID_BRIDGE = 8;
+        public const int LOCATION_ID_CAVE_ENTRANCE = 8;
         public const int LOCATION_ID_ABANDONED_MINESHAFT = 9;
 
         static World()
@@ -84,12 +84,77 @@ namespace Engine
 
         private static void PopulateQuests()
         {
+            Quest clearClericGarden = new Quest(QUEST_ID_CLEAR_CLERIC_GARDEN, "Clear the cleric's garden", "Kill zombies in the cleric's garden and bring back 3 carrots to help the cleric make potions. You will recieve a golden apple and 10 emeralds", 20, 10);
+            clearClericGarden.QuestCompletionItems.Add(new QuestCompletionItem(ItemByID(ITEM_ID_CARROT), 3));
+            clearClericGarden.RewardItem = ItemByID(ITEM_ID_GOLDEN_APPLE);
 
+            Quest clearWheatField = new Quest(QUEST_ID_CLEAR_WHEAT_FIELD, "Clear the wheat field", "Kill skeletons in the wheat field and bring back 3 bones so the farmer can make bone meal. You will recieve an adventurer's pass and 20 emeralds", 20, 20);
+            clearWheatField.QuestCompletionItems.Add(new QuestCompletionItem(ItemByID(ITEM_ID_BONE), 3));
+            clearWheatField.RewardItem = ItemByID(ITEM_ID_ADVENTURER_PASS);
+
+            Quests.Add(clearClericGarden);
+            Quests.Add(clearWheatField);
         }
 
         private static void PopulateLocations()
         {
+            Location home = new Location(LOCATION_ID_HOME, "Home", "Your home. A simple hut with some chests, a furnace and a crafting table.");
 
+            Location villageCenter = new Location(LOCATION_ID_VILLAGE_CENTER, "Village center", "You see a bell.");
+
+            Location clericHouse = new Location(LOCATION_ID_CLERIC_HOUSE, "Cleric's house", "There are a lot of brewing stands and cauldrons.");
+            clericHouse.QuestAvailableHere = QuestByID(QUEST_ID_CLEAR_CLERIC_GARDEN);
+
+            Location clericGarden = new Location(LOCATION_ID_CLERIC_GARDEN, "Cleric's garden", "Full of nether wart.");
+            clericGarden.MobLivingHere = MobByID(MOB_ID_ZOMBIE);
+
+            Location farmerHouse = new Location(LOCATION_ID_FARMER_HOUSE, "Farmer's house", "There are composters and barrels full of wheat.");
+            farmerHouse.QuestAvailableHere = QuestByID(QUEST_ID_CLEAR_WHEAT_FIELD);
+
+            Location wheatField = new Location(LOCATION_ID_WHEAT_FIELD, "Wheat field", "Fields and fields of wheat.");
+            wheatField.MobLivingHere = MobByID(MOB_ID_SKELETON);
+
+            Location villageGate = new Location(LOCATION_ID_VILLAGE_GATE, "Village gate", "There are two massive iron golems standing guard.", ItemByID(ITEM_ID_ADVENTURER_PASS));
+
+            Location caveEntrance = new Location(LOCATION_ID_CAVE_ENTRANCE, "Cave entrance", "A dark cave entrance in the side of a mountain.");
+
+            Location abandonedMineshaft = new Location(LOCATION_ID_ABANDONED_MINESHAFT, "Abandoned mineshaft", "You see cobwebs and old minecart tracks.");
+            abandonedMineshaft.MobLivingHere = MobByID(MOB_ID_CAVE_SPIDER);
+
+            home.LocationToNorth = villageCenter;
+
+            villageCenter.LocationToNorth = clericHouse;
+            villageCenter.LocationToSouth = home;
+            villageCenter.LocationToEast = villageGate;
+            villageCenter.LocationToWest = farmerHouse;
+
+            farmerHouse.LocationToEast = villageCenter;
+            farmerHouse.LocationToWest = wheatField;
+
+            wheatField.LocationToEast = farmerHouse;
+
+            clericHouse.LocationToNorth = clericGarden;
+            clericHouse.LocationToSouth = villageCenter;
+
+            clericGarden.LocationToSouth = clericHouse;
+
+            villageGate.LocationToEast = caveEntrance;
+            villageGate.LocationToWest = villageCenter;
+
+            caveEntrance.LocationToEast = abandonedMineshaft;
+            caveEntrance.LocationToWest = villageGate;
+
+            abandonedMineshaft.LocationToWest = caveEntrance;
+
+            Locations.Add(home);
+            Locations.Add(villageCenter);
+            Locations.Add(villageGate);
+            Locations.Add(clericHouse);
+            Locations.Add(clericGarden);
+            Locations.Add(farmerHouse);
+            Locations.Add(wheatField);
+            Locations.Add(caveEntrance);
+            Locations.Add(abandonedMineshaft);
         }
 
         public static Item ItemByID(int id)
@@ -107,17 +172,41 @@ namespace Engine
 
         public static Mob MobByID(int id)
         {
+            foreach(Mob mob in Mobs)
+            {
+                if(mob.ID == id)
+                {
+                    return mob;
+                }
+            }
 
+            return null;
         }
 
         public static Quest QuestByID(int id)
         {
+            foreach(Quest quest in Quests)
+            {
+                if(quest.ID == id)
+                {
+                    return quest;
+                }
+            }
 
+            return null;
         }
 
         public static Location LocationByID(int id)
         {
+            foreach(Location location in Locations)
+            {
+                if(location.ID == id)
+                {
+                    return location;
+                }
+            }
 
+            return null;
         }
     }
 }
