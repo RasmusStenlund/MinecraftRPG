@@ -13,6 +13,7 @@ namespace Engine
         public int MaximumDamage { get; set; }
         public int RewardExperiencePoints { get; set; }
         public int RewardEmeralds { get; set; }
+        public List<LootItem> LootTable { get; set; }
 
         public Mob(int id, string name, int maximumDamage, int rewardExperiencePoints, int rewardEmeralds, int currentHitPoints, int maximumHitPoints) : base(currentHitPoints, maximumHitPoints)
         {
@@ -21,6 +22,7 @@ namespace Engine
             MaximumDamage = maximumDamage;
             RewardExperiencePoints = rewardExperiencePoints;
             RewardEmeralds = rewardEmeralds;
+            LootTable = new List<LootItem>();
         }
     }
 }
