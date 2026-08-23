@@ -211,7 +211,115 @@ namespace MinecraftRPG
                 }
             }
 
+            if (newLocation.MobLivingHere != null)
+            {
+                rtbMessages.Text += "You see a " + newLocation.MobLivingHere.Name + Environment.NewLine;
+                Mob standardMob = World.MobByID(newLocation.MobLivingHere.ID);
 
+                _currentMob = new Mob(standardMob.ID, standardMob.Name, standardMob.MaximumDamage, standardMob.RewardExperiencePoints, standardMob.RewardEmeralds, standardMob.CurrentHitPoints, standardMob.MaximumHitPoints);
+
+                foreach(LootItem lootItem in standardMob.LootTable)
+                {
+                    _currentMob.LootTable.Add(lootItem);
+                }
+
+                cboWeapons.Visible = true;
+                cboConsumables.Visible = true;
+                btnUseWeapon.Visible = true;
+                btnUseConsumable.Visible = true;
+            }
+            else
+            {
+                _currentMob = null;
+
+                cboWeapons.Visible = false;
+                cboConsumables.Visible = false;
+                btnUseWeapon.Visible = false;
+                btnUseConsumable.Visible = false;
+            }
+
+            dgvInventory.RowHeadersVisible = false;
+
+            dgvInventory.ColumnCount = 2;
+            dgvInventory.Columns[0].Name = "Name";
+            dgvInventory.Columns[0].Width = 197;
+            dgvInventory.Columns[1].Name = "Quantity";
+
+            dgvInventory.Rows.Clear();
+
+            foreach(InventoryItem inventoryItem in _player.Inventory)
+            {
+                if(inventoryItem.Quantity > 0)
+                {
+                    dgvInventory.Rows.Add(new[] { inventoryItem.Details.Name, inventoryItem.Quantity.ToString() });
+                }
+            }
+
+            dgvQuests.RowHeadersVisible = false;
+
+            dgvQuests.ColumnCount = 2;
+            dgvQuests.Columns[0].Name = "Name";
+            dgvQuests.Columns[0].Width = 197;
+            dgvQuests.Columns[1].Name = "Done?";
+
+            dgvQuests.Rows.Clear();
+
+            foreach(PlayerQuest playerQuest in _player.Quests)
+            {
+                dgvQuests.Rows.Add(new[] { playerQuest.Details.Name, playerQuest.IsCompleted.ToString() });
+            }
+
+            List<Weapon> weapons = new List<Weapon>();
+
+            foreach(InventoryItem inventoryItem in _player.Inventory)
+            {
+                if(inventoryItem.Details is Weapon)
+                {
+                    if(inventoryItem.Quantity > 0)
+                    {
+                        weapons.Add((Weapon)inventoryItem.Details);
+                    }
+                }
+            }
+
+            if(weapons.Count == 0)
+            {
+                cboWeapons.Visible = false;
+                btnUseWeapon.Visible = false;
+            }
+            else
+            {
+                cboWeapons.DataSource = weapons;
+                cboWeapons.DisplayMember = "Name";
+                cboWeapons.ValueMember = "ID";
+                cboWeapons.SelectedIndex = 0;
+            }
+
+            List<Consumable> consumables = new List<Consumable>();
+
+            foreach(InventoryItem inventoryItem in _player.Inventory)
+            {
+                if (inventoryItem.Details is Consumable)
+                {
+                    if (inventoryItem.Quantity > 0)
+                    {
+                        consumables.Add((Consumable)inventoryItem.Details);
+                    }
+                }
+            }
+
+            if (consumables.Count == 0)
+            {
+                cboConsumables.Visible = false;
+                btnUseConsumable.Visible = false;
+            }
+            else
+            {
+                cboConsumables.DataSource = consumables;
+                cboConsumables.DisplayMember = "Name";
+                cboConsumables.ValueMember = "ID";
+                cboConsumables.SelectedIndex = 0;
+            }
         }
 
         private void btnUseWeapon_Click(object sender, EventArgs e)
