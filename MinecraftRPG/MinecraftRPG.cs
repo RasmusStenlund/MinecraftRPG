@@ -19,14 +19,11 @@ namespace MinecraftRPG
         {
             InitializeComponent();
 
-            _player = new Player(10, 10, 20, 0, 1);
+            _player = new Player(10, 10, 20, 0);
             MoveTo(World.LocationByID(World.LOCATION_ID_HOME));
             _player.Inventory.Add(new InventoryItem(World.ItemByID(World.ITEM_ID_WOODEN_SWORD), 1));
 
-            lblHitPoints.Text = _player.CurrentHitPoints.ToString();
-            lblEmeralds.Text = _player.Emeralds.ToString();
-            lblExperience.Text = _player.ExperiencePoints.ToString();
-            lblLevel.Text = _player.Level.ToString();
+            UpdatePlayerStats();
         }
 
         private void btnNorth_Click(object sender, EventArgs e)
@@ -54,6 +51,7 @@ namespace MinecraftRPG
             if (!_player.HasRequiredItemToEnterLocation(newLocation))   
             {
                 rtbMessages.Text += "You must have a " + newLocation.ItemRequiredToEnter.Name + " to enter this location." + Environment.NewLine;
+                ScrollToBottomOfMessages();
                 return;
             }
 
@@ -91,11 +89,15 @@ namespace MinecraftRPG
                             rtbMessages.Text += newLocation.QuestAvailableHere.RewardItem.Name + Environment.NewLine;
                             rtbMessages.Text += Environment.NewLine;
 
+                            ScrollToBottomOfMessages();
+
                             _player.ExperiencePoints += newLocation.QuestAvailableHere.RewardExperiencePoints;
                             _player.Emeralds += newLocation.QuestAvailableHere.RewardEmeralds;
 
                             _player.AddItemToInventory(newLocation.QuestAvailableHere.RewardItem);
                             _player.MarkQuestCompleted(newLocation.QuestAvailableHere);
+
+                            UpdatePlayerStats();
                         }
                     }
                 }
@@ -105,7 +107,9 @@ namespace MinecraftRPG
                     rtbMessages.Text += "You receive the " + newLocation.QuestAvailableHere.Name + " quest." + Environment.NewLine;
                     rtbMessages.Text += newLocation.QuestAvailableHere.Description + Environment.NewLine;
                     rtbMessages.Text += "To complete it, return with:" + Environment.NewLine;
-                    foreach(QuestCompletionItem qci in newLocation.QuestAvailableHere.QuestCompletionItems)
+                    ScrollToBottomOfMessages();
+
+                    foreach (QuestCompletionItem qci in newLocation.QuestAvailableHere.QuestCompletionItems)
                     {
                         if(qci.Quantity == 1)
                         {
@@ -117,6 +121,7 @@ namespace MinecraftRPG
                         }
                     }
                     rtbMessages.Text += Environment.NewLine;
+                    ScrollToBottomOfMessages();
                     _player.Quests.Add(new PlayerQuest(newLocation.QuestAvailableHere));
                 }
             }
@@ -124,6 +129,7 @@ namespace MinecraftRPG
             if (newLocation.MobLivingHere != null)
             {
                 rtbMessages.Text += "You see a " + newLocation.MobLivingHere.Name + Environment.NewLine;
+                ScrollToBottomOfMessages();
                 Mob standardMob = World.MobByID(newLocation.MobLivingHere.ID);
 
                 _currentMob = new Mob(standardMob.ID, standardMob.Name, standardMob.MaximumDamage, standardMob.RewardExperiencePoints, standardMob.RewardEmeralds, standardMob.CurrentHitPoints, standardMob.MaximumHitPoints);
@@ -257,8 +263,9 @@ namespace MinecraftRPG
             _currentMob.CurrentHitPoints -= damageToMob;
 
             rtbMessages.Text += "You hit the " + _currentMob.Name + " for " + damageToMob.ToString() + " points." + Environment.NewLine;
+            ScrollToBottomOfMessages();
 
-            if(_currentMob.CurrentHitPoints <= 0)
+            if (_currentMob.CurrentHitPoints <= 0)
             {
                 rtbMessages.Text += Environment.NewLine;
                 rtbMessages.Text += "You defeated the " + _currentMob.Name + Environment.NewLine;
@@ -268,6 +275,8 @@ namespace MinecraftRPG
 
                 _player.Emeralds += _currentMob.RewardEmeralds;
                 rtbMessages.Text += "You recieve " + _currentMob.RewardEmeralds + " emeralds" + Environment.NewLine;
+
+                ScrollToBottomOfMessages();
 
                 List<InventoryItem> lootedItems = new List<InventoryItem>();
 
@@ -304,33 +313,31 @@ namespace MinecraftRPG
                     }
                 }
 
-                lblHitPoints.Text = _player.CurrentHitPoints.ToString();
-                lblEmeralds.Text = _player.Emeralds.ToString();
-                lblExperience.Text = _player.ExperiencePoints.ToString();
-                lblLevel.Text = _player.Level.ToString();
+                UpdatePlayerStats();
 
                 UpdateInventoryListInUI();
                 UpdateWeaponListInUI();
                 UpdateConsumableListInUI();
 
                 rtbMessages.Text += Environment.NewLine;
-
+                ScrollToBottomOfMessages();
                 MoveTo(_player.CurrentLocation);
             }
             else
             {
                 int damageToPlayer = RandomNumberGenerator.NumberBetween(0, _currentMob.MaximumDamage);
                 rtbMessages.Text += "The " + _currentMob.Name + " did " + damageToPlayer.ToString() + " points of damage." + Environment.NewLine;
-
+                ScrollToBottomOfMessages();
                 _player.CurrentHitPoints -= damageToPlayer;
-                lblHitPoints.Text = _player.CurrentHitPoints.ToString();
+                UpdatePlayerStats();
 
                 if (_player.CurrentHitPoints <= 0)
                 {
                     rtbMessages.Text += "The " + _currentMob.Name + " killed you." + Environment.NewLine;
+                    ScrollToBottomOfMessages();
                     MoveTo(World.LocationByID(World.LOCATION_ID_HOME));
                     _player.CurrentHitPoints = _player.MaximumHitPoints;
-                    lblHitPoints.Text = _player.CurrentHitPoints.ToString();
+                    UpdatePlayerStats();
                 }
             }
         }
@@ -356,22 +363,40 @@ namespace MinecraftRPG
             }
 
             rtbMessages.Text += "You eat a " + consumable.Name + Environment.NewLine;
+            ScrollToBottomOfMessages();
 
             int damageToPlayer = RandomNumberGenerator.NumberBetween(0, _currentMob.MaximumDamage);
             rtbMessages.Text += "The " + _currentMob.Name + " did " + damageToPlayer.ToString() + " points of damage." + Environment.NewLine;
+            ScrollToBottomOfMessages();
             _player.CurrentHitPoints -= damageToPlayer;
 
             if (_player.CurrentHitPoints <= 0)
             {
                 rtbMessages.Text += "The " + _currentMob.Name + " killed you." + Environment.NewLine;
+                ScrollToBottomOfMessages();
+
                 MoveTo(World.LocationByID(World.LOCATION_ID_HOME));
                 _player.CurrentHitPoints = _player.MaximumHitPoints;
-                lblHitPoints.Text = _player.CurrentHitPoints.ToString();
+                UpdatePlayerStats();
             }
 
-            lblHitPoints.Text = _player.CurrentHitPoints.ToString();
+            UpdatePlayerStats();
             UpdateInventoryListInUI();
             UpdateConsumableListInUI();
+        }
+
+        private void ScrollToBottomOfMessages()
+        {
+            rtbMessages.SelectionStart = rtbMessages.Text.Length;
+            rtbMessages.ScrollToCaret();
+        }
+
+        private void UpdatePlayerStats()
+        {
+            lblHitPoints.Text = _player.CurrentHitPoints.ToString();
+            lblEmeralds.Text = _player.Emeralds.ToString();
+            lblExperience.Text = _player.ExperiencePoints.ToString();
+            lblLevel.Text = _player.Level.ToString();
         }
     }
 }
