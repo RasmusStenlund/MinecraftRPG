@@ -65,11 +65,11 @@ namespace Engine
 
         private static void PopulateMobs()
         {
-            Mob zombie = new Mob(MOB_ID_ZOMBIE, "Zombie", 5, 3, 10, 3, 3);
+            Mob zombie = new Mob(MOB_ID_ZOMBIE, "Zombie", 5, 5, 3, 3, 3);
             zombie.LootTable.Add(new LootItem(ItemByID(ITEM_ID_ROTTEN_FLESH), 75, true));
             zombie.LootTable.Add(new LootItem(ItemByID(ITEM_ID_CARROT), 75, false));
 
-            Mob skeleton = new Mob(MOB_ID_SKELETON, "Skeleton", 5, 3, 10, 3, 3);
+            Mob skeleton = new Mob(MOB_ID_SKELETON, "Skeleton", 7, 10, 5, 3, 3);
             skeleton.LootTable.Add(new LootItem(ItemByID(ITEM_ID_ARROW), 75, true));
             skeleton.LootTable.Add(new LootItem(ItemByID(ITEM_ID_BONE), 75, false));
 

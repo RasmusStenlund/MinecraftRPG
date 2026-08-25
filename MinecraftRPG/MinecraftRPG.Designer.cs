@@ -49,6 +49,7 @@
             this.rtbLocation = new System.Windows.Forms.RichTextBox();
             this.dgvQuests = new System.Windows.Forms.DataGridView();
             this.dgvInventory = new System.Windows.Forms.DataGridView();
+            this.btnMap = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvQuests)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvInventory)).BeginInit();
             this.SuspendLayout();
@@ -56,102 +57,114 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(18, 46);
+            this.label2.Location = new System.Drawing.Point(24, 57);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
             this.label2.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.label2.Size = new System.Drawing.Size(53, 13);
+            this.label2.Size = new System.Drawing.Size(68, 16);
             this.label2.TabIndex = 1;
             this.label2.Text = "Emeralds:";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(18, 74);
+            this.label3.Location = new System.Drawing.Point(24, 91);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(63, 13);
+            this.label3.Size = new System.Drawing.Size(78, 16);
             this.label3.TabIndex = 2;
             this.label3.Text = "Experience:";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(18, 100);
+            this.label4.Location = new System.Drawing.Point(24, 123);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(36, 13);
+            this.label4.Size = new System.Drawing.Size(43, 16);
             this.label4.TabIndex = 3;
             this.label4.Text = "Level:";
             // 
             // lblHitPoints
             // 
             this.lblHitPoints.AutoSize = true;
-            this.lblHitPoints.Location = new System.Drawing.Point(110, 19);
+            this.lblHitPoints.Location = new System.Drawing.Point(147, 23);
+            this.lblHitPoints.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblHitPoints.Name = "lblHitPoints";
-            this.lblHitPoints.Size = new System.Drawing.Size(0, 13);
+            this.lblHitPoints.Size = new System.Drawing.Size(0, 16);
             this.lblHitPoints.TabIndex = 4;
             // 
             // lblEmeralds
             // 
             this.lblEmeralds.AutoSize = true;
-            this.lblEmeralds.Location = new System.Drawing.Point(110, 45);
+            this.lblEmeralds.Location = new System.Drawing.Point(147, 55);
+            this.lblEmeralds.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblEmeralds.Name = "lblEmeralds";
-            this.lblEmeralds.Size = new System.Drawing.Size(0, 13);
+            this.lblEmeralds.Size = new System.Drawing.Size(0, 16);
             this.lblEmeralds.TabIndex = 5;
             // 
             // lblExperience
             // 
             this.lblExperience.AutoSize = true;
-            this.lblExperience.Location = new System.Drawing.Point(110, 73);
+            this.lblExperience.Location = new System.Drawing.Point(147, 90);
+            this.lblExperience.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblExperience.Name = "lblExperience";
-            this.lblExperience.Size = new System.Drawing.Size(0, 13);
+            this.lblExperience.Size = new System.Drawing.Size(0, 16);
             this.lblExperience.TabIndex = 6;
             // 
             // lblLevel
             // 
             this.lblLevel.AutoSize = true;
-            this.lblLevel.Location = new System.Drawing.Point(110, 99);
+            this.lblLevel.Location = new System.Drawing.Point(147, 122);
+            this.lblLevel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblLevel.Name = "lblLevel";
-            this.lblLevel.Size = new System.Drawing.Size(0, 13);
+            this.lblLevel.Size = new System.Drawing.Size(0, 16);
             this.lblLevel.TabIndex = 7;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(18, 20);
+            this.label1.Location = new System.Drawing.Point(24, 25);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(55, 13);
+            this.label1.Size = new System.Drawing.Size(66, 16);
             this.label1.TabIndex = 8;
             this.label1.Text = "Hit Points:";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(617, 531);
+            this.label5.Location = new System.Drawing.Point(823, 643);
+            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(69, 13);
+            this.label5.Size = new System.Drawing.Size(84, 16);
             this.label5.TabIndex = 9;
             this.label5.Text = "Select action";
             // 
             // cboConsumables
             // 
             this.cboConsumables.FormattingEnabled = true;
-            this.cboConsumables.Location = new System.Drawing.Point(369, 593);
+            this.cboConsumables.Location = new System.Drawing.Point(536, 716);
+            this.cboConsumables.Margin = new System.Windows.Forms.Padding(4);
             this.cboConsumables.Name = "cboConsumables";
-            this.cboConsumables.Size = new System.Drawing.Size(121, 21);
+            this.cboConsumables.Size = new System.Drawing.Size(160, 24);
             this.cboConsumables.TabIndex = 10;
             // 
             // cboWeapons
             // 
             this.cboWeapons.FormattingEnabled = true;
-            this.cboWeapons.Location = new System.Drawing.Point(369, 559);
+            this.cboWeapons.Location = new System.Drawing.Point(536, 674);
+            this.cboWeapons.Margin = new System.Windows.Forms.Padding(4);
             this.cboWeapons.Name = "cboWeapons";
-            this.cboWeapons.Size = new System.Drawing.Size(121, 21);
+            this.cboWeapons.Size = new System.Drawing.Size(160, 24);
             this.cboWeapons.TabIndex = 11;
             // 
             // btnUseWeapon
             // 
-            this.btnUseWeapon.Location = new System.Drawing.Point(620, 559);
+            this.btnUseWeapon.Location = new System.Drawing.Point(827, 674);
+            this.btnUseWeapon.Margin = new System.Windows.Forms.Padding(4);
             this.btnUseWeapon.Name = "btnUseWeapon";
-            this.btnUseWeapon.Size = new System.Drawing.Size(75, 23);
+            this.btnUseWeapon.Size = new System.Drawing.Size(100, 28);
             this.btnUseWeapon.TabIndex = 12;
             this.btnUseWeapon.Text = "Use";
             this.btnUseWeapon.UseVisualStyleBackColor = true;
@@ -159,9 +172,10 @@
             // 
             // btnUseConsumable
             // 
-            this.btnUseConsumable.Location = new System.Drawing.Point(620, 593);
+            this.btnUseConsumable.Location = new System.Drawing.Point(827, 716);
+            this.btnUseConsumable.Margin = new System.Windows.Forms.Padding(4);
             this.btnUseConsumable.Name = "btnUseConsumable";
-            this.btnUseConsumable.Size = new System.Drawing.Size(75, 23);
+            this.btnUseConsumable.Size = new System.Drawing.Size(100, 28);
             this.btnUseConsumable.TabIndex = 13;
             this.btnUseConsumable.Text = "Use";
             this.btnUseConsumable.UseVisualStyleBackColor = true;
@@ -169,9 +183,10 @@
             // 
             // btnEast
             // 
-            this.btnEast.Location = new System.Drawing.Point(573, 457);
+            this.btnEast.Location = new System.Drawing.Point(764, 562);
+            this.btnEast.Margin = new System.Windows.Forms.Padding(4);
             this.btnEast.Name = "btnEast";
-            this.btnEast.Size = new System.Drawing.Size(75, 23);
+            this.btnEast.Size = new System.Drawing.Size(100, 28);
             this.btnEast.TabIndex = 14;
             this.btnEast.Text = "East";
             this.btnEast.UseVisualStyleBackColor = true;
@@ -179,9 +194,10 @@
             // 
             // btnSouth
             // 
-            this.btnSouth.Location = new System.Drawing.Point(493, 487);
+            this.btnSouth.Location = new System.Drawing.Point(657, 599);
+            this.btnSouth.Margin = new System.Windows.Forms.Padding(4);
             this.btnSouth.Name = "btnSouth";
-            this.btnSouth.Size = new System.Drawing.Size(75, 23);
+            this.btnSouth.Size = new System.Drawing.Size(100, 28);
             this.btnSouth.TabIndex = 15;
             this.btnSouth.Text = "South";
             this.btnSouth.UseVisualStyleBackColor = true;
@@ -189,9 +205,10 @@
             // 
             // btnNorth
             // 
-            this.btnNorth.Location = new System.Drawing.Point(493, 433);
+            this.btnNorth.Location = new System.Drawing.Point(657, 533);
+            this.btnNorth.Margin = new System.Windows.Forms.Padding(4);
             this.btnNorth.Name = "btnNorth";
-            this.btnNorth.Size = new System.Drawing.Size(75, 23);
+            this.btnNorth.Size = new System.Drawing.Size(100, 28);
             this.btnNorth.TabIndex = 16;
             this.btnNorth.Text = "North";
             this.btnNorth.UseVisualStyleBackColor = true;
@@ -199,9 +216,10 @@
             // 
             // btnWest
             // 
-            this.btnWest.Location = new System.Drawing.Point(412, 457);
+            this.btnWest.Location = new System.Drawing.Point(549, 562);
+            this.btnWest.Margin = new System.Windows.Forms.Padding(4);
             this.btnWest.Name = "btnWest";
-            this.btnWest.Size = new System.Drawing.Size(75, 23);
+            this.btnWest.Size = new System.Drawing.Size(100, 28);
             this.btnWest.TabIndex = 17;
             this.btnWest.Text = "West";
             this.btnWest.UseVisualStyleBackColor = true;
@@ -209,19 +227,21 @@
             // 
             // rtbMessages
             // 
-            this.rtbMessages.Location = new System.Drawing.Point(347, 130);
+            this.rtbMessages.Location = new System.Drawing.Point(463, 160);
+            this.rtbMessages.Margin = new System.Windows.Forms.Padding(4);
             this.rtbMessages.Name = "rtbMessages";
             this.rtbMessages.ReadOnly = true;
-            this.rtbMessages.Size = new System.Drawing.Size(360, 286);
+            this.rtbMessages.Size = new System.Drawing.Size(479, 351);
             this.rtbMessages.TabIndex = 18;
             this.rtbMessages.Text = "";
             // 
             // rtbLocation
             // 
-            this.rtbLocation.Location = new System.Drawing.Point(347, 19);
+            this.rtbLocation.Location = new System.Drawing.Point(463, 23);
+            this.rtbLocation.Margin = new System.Windows.Forms.Padding(4);
             this.rtbLocation.Name = "rtbLocation";
             this.rtbLocation.ReadOnly = true;
-            this.rtbLocation.Size = new System.Drawing.Size(360, 105);
+            this.rtbLocation.Size = new System.Drawing.Size(479, 128);
             this.rtbLocation.TabIndex = 19;
             this.rtbLocation.Text = "";
             // 
@@ -233,12 +253,14 @@
             this.dgvQuests.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvQuests.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dgvQuests.Enabled = false;
-            this.dgvQuests.Location = new System.Drawing.Point(16, 446);
+            this.dgvQuests.Location = new System.Drawing.Point(21, 549);
+            this.dgvQuests.Margin = new System.Windows.Forms.Padding(4);
             this.dgvQuests.MultiSelect = false;
             this.dgvQuests.Name = "dgvQuests";
             this.dgvQuests.ReadOnly = true;
             this.dgvQuests.RowHeadersVisible = false;
-            this.dgvQuests.Size = new System.Drawing.Size(312, 189);
+            this.dgvQuests.RowHeadersWidth = 51;
+            this.dgvQuests.Size = new System.Drawing.Size(416, 233);
             this.dgvQuests.TabIndex = 20;
             // 
             // dgvInventory
@@ -249,19 +271,32 @@
             this.dgvInventory.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvInventory.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dgvInventory.Enabled = false;
-            this.dgvInventory.Location = new System.Drawing.Point(16, 130);
+            this.dgvInventory.Location = new System.Drawing.Point(21, 160);
+            this.dgvInventory.Margin = new System.Windows.Forms.Padding(4);
             this.dgvInventory.MultiSelect = false;
             this.dgvInventory.Name = "dgvInventory";
             this.dgvInventory.ReadOnly = true;
             this.dgvInventory.RowHeadersVisible = false;
-            this.dgvInventory.Size = new System.Drawing.Size(312, 309);
+            this.dgvInventory.RowHeadersWidth = 51;
+            this.dgvInventory.Size = new System.Drawing.Size(416, 380);
             this.dgvInventory.TabIndex = 21;
+            // 
+            // btnMap
+            // 
+            this.btnMap.Location = new System.Drawing.Point(657, 564);
+            this.btnMap.Name = "btnMap";
+            this.btnMap.Size = new System.Drawing.Size(100, 28);
+            this.btnMap.TabIndex = 22;
+            this.btnMap.Text = "Map";
+            this.btnMap.UseVisualStyleBackColor = true;
+            this.btnMap.Click += new System.EventHandler(this.btnMap_Click);
             // 
             // MinecraftRPG
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(719, 651);
+            this.ClientSize = new System.Drawing.Size(959, 801);
+            this.Controls.Add(this.btnMap);
             this.Controls.Add(this.dgvInventory);
             this.Controls.Add(this.dgvQuests);
             this.Controls.Add(this.rtbLocation);
@@ -283,6 +318,7 @@
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "MinecraftRPG";
             this.Text = "MinecraftRPG";
             ((System.ComponentModel.ISupportInitialize)(this.dgvQuests)).EndInit();
@@ -315,6 +351,7 @@
         private System.Windows.Forms.RichTextBox rtbLocation;
         private System.Windows.Forms.DataGridView dgvQuests;
         private System.Windows.Forms.DataGridView dgvInventory;
+        private System.Windows.Forms.Button btnMap;
     }
 }
 

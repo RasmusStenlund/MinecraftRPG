@@ -56,6 +56,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WorldMap.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WorldMap.Designer.cs">
+      <DependentUpon>WorldMap.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="MinecraftRPG.resx">
       <DependentUpon>MinecraftRPG.cs</DependentUpon>
     </EmbeddedResource>
@@ -68,6 +74,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="WorldMap.resx">
+      <DependentUpon>WorldMap.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -86,6 +95,17 @@
       <Project>{41242e58-af44-4caa-a36b-8d91757d5beb}</Project>
       <Name>Engine</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Images\cleric_garden.png" />
+    <EmbeddedResource Include="Images\cleric_house.png" />
+    <EmbeddedResource Include="Images\farmer_house.png" />
+    <EmbeddedResource Include="Images\forest.png" />
+    <EmbeddedResource Include="Images\home.png" />
+    <EmbeddedResource Include="Images\mineshaft.png" />
+    <EmbeddedResource Include="Images\village_center.png" />
+    <EmbeddedResource Include="Images\village_gate.png" />
+    <EmbeddedResource Include="Images\wheat_field.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

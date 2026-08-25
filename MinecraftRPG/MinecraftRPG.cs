@@ -19,9 +19,9 @@ namespace MinecraftRPG
         {
             InitializeComponent();
 
-            _player = new Player(10, 10, 20, 0);
-            MoveTo(World.LocationByID(World.LOCATION_ID_HOME));
+            _player = new Player(20, 20, 5, 0);
             _player.Inventory.Add(new InventoryItem(World.ItemByID(World.ITEM_ID_WOODEN_SWORD), 1));
+            MoveTo(World.LocationByID(World.LOCATION_ID_HOME));
 
             UpdatePlayerStats();
         }
@@ -91,7 +91,7 @@ namespace MinecraftRPG
 
                             ScrollToBottomOfMessages();
 
-                            _player.ExperiencePoints += newLocation.QuestAvailableHere.RewardExperiencePoints;
+                            _player.AddExperiencePoints(newLocation.QuestAvailableHere.RewardExperiencePoints);
                             _player.Emeralds += newLocation.QuestAvailableHere.RewardEmeralds;
 
                             _player.AddItemToInventory(newLocation.QuestAvailableHere.RewardItem);
@@ -168,6 +168,7 @@ namespace MinecraftRPG
             dgvInventory.Columns[0].Name = "Name";
             dgvInventory.Columns[0].Width = 197;
             dgvInventory.Columns[1].Name = "Quantity";
+            dgvInventory.Columns[1].Width = 112;
 
             dgvInventory.Rows.Clear();
 
@@ -188,6 +189,7 @@ namespace MinecraftRPG
             dgvQuests.Columns[0].Name = "Name";
             dgvQuests.Columns[0].Width = 197;
             dgvQuests.Columns[1].Name = "Done?";
+            dgvQuests.Columns[1].Width = 112;
 
             dgvQuests.Rows.Clear();
 
@@ -219,10 +221,21 @@ namespace MinecraftRPG
             }
             else
             {
+                cboWeapons.SelectedIndexChanged -= cboWeapons_SelectedIndexChanged;
                 cboWeapons.DataSource = weapons;
+                cboWeapons.SelectedIndexChanged += cboWeapons_SelectedIndexChanged;
                 cboWeapons.DisplayMember = "Name";
                 cboWeapons.ValueMember = "ID";
                 cboWeapons.SelectedIndex = 0;
+
+                if (_player.CurrentWeapon != null)
+                {
+                    cboWeapons.SelectedItem = _player.CurrentWeapon;
+                }
+                else
+                {
+                    cboWeapons.SelectedIndex = 0;
+                }
             }
         }
 
@@ -270,7 +283,7 @@ namespace MinecraftRPG
                 rtbMessages.Text += Environment.NewLine;
                 rtbMessages.Text += "You defeated the " + _currentMob.Name + Environment.NewLine;
 
-                _player.ExperiencePoints += _currentMob.RewardExperiencePoints;
+                _player.AddExperiencePoints(_currentMob.RewardExperiencePoints);
                 rtbMessages.Text += "You recieve " + _currentMob.RewardExperiencePoints + " experience points" + Environment.NewLine;
 
                 _player.Emeralds += _currentMob.RewardEmeralds;
@@ -397,6 +410,18 @@ namespace MinecraftRPG
             lblEmeralds.Text = _player.Emeralds.ToString();
             lblExperience.Text = _player.ExperiencePoints.ToString();
             lblLevel.Text = _player.Level.ToString();
+        }
+
+        private void cboWeapons_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            _player.CurrentWeapon = (Weapon)cboWeapons.SelectedItem;
+        }
+
+        private void btnMap_Click(object sender, EventArgs e)
+        {
+            WorldMap mapScreen = new WorldMap();
+            mapScreen.StartPosition = FormStartPosition.CenterParent;
+            mapScreen.ShowDialog(this); 
         }
     }
 }
