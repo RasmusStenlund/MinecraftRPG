@@ -23,6 +23,8 @@ namespace Engine
         public const int ITEM_ID_SPIDER_EYE = 8;
         public const int ITEM_ID_STRING = 9;
         public const int ITEM_ID_ADVENTURER_PASS = 10;
+        public const int ITEM_ID_OAK_LOG = 11;
+        public const int ITEM_ID_WHEAT = 12;
 
         public const int MOB_ID_ZOMBIE = 1;
         public const int MOB_ID_SKELETON = 2;
@@ -38,8 +40,9 @@ namespace Engine
         public const int LOCATION_ID_CLERIC_GARDEN = 5;
         public const int LOCATION_ID_FARMER_HOUSE = 6;
         public const int LOCATION_ID_WHEAT_FIELD = 7;
-        public const int LOCATION_ID_CAVE_ENTRANCE = 8;
-        public const int LOCATION_ID_ABANDONED_MINESHAFT = 9;
+        public const int LOCATION_ID_FOREST = 8;
+        public const int LOCATION_ID_CAVE_ENTRANCE = 9;
+        public const int LOCATION_ID_ABANDONED_MINESHAFT = 10;
 
         static World()
         {
@@ -53,25 +56,27 @@ namespace Engine
         {
             Items.Add(new Weapon(ITEM_ID_WOODEN_SWORD, "Wooden Sword", "Wooden Swords", 0, 5));
             Items.Add(new Item(ITEM_ID_ROTTEN_FLESH, "Rotten Flesh", "Rotten Flesh"));
-            Items.Add(new Item(ITEM_ID_CARROT, "Carrot", "Carrots"));
+            Items.Add(new Consumable(ITEM_ID_CARROT, "Carrot", "Carrots", 3));
             Items.Add(new Item(ITEM_ID_BONE, "Bone", "Bones"));
             Items.Add(new Item(ITEM_ID_ARROW, "Arrow", "Arrows"));
             Items.Add(new Weapon(ITEM_ID_STONE_AXE, "Stone Axe", "Stone Axes", 3, 10));
-            Items.Add(new Consumable(ITEM_ID_GOLDEN_APPLE, "Golden Apple", "Golden Apples", 5));
+            Items.Add(new Consumable(ITEM_ID_GOLDEN_APPLE, "Golden Apple", "Golden Apples", 15));
             Items.Add(new Item(ITEM_ID_SPIDER_EYE, "Spider Eye", "Spider Eyes"));
             Items.Add(new Item(ITEM_ID_STRING, "String", "String"));
             Items.Add(new Item(ITEM_ID_ADVENTURER_PASS, "Adventurer Pass", "Adventurer Passes"));
+            Items.Add(new Item(ITEM_ID_OAK_LOG, "Oak log", "Oak logs"));
+            Items.Add(new Item(ITEM_ID_WHEAT, "Wheat", "Wheat"));
         }
 
         private static void PopulateMobs()
         {
             Mob zombie = new Mob(MOB_ID_ZOMBIE, "Zombie", 5, 5, 3, 3, 3);
             zombie.LootTable.Add(new LootItem(ItemByID(ITEM_ID_ROTTEN_FLESH), 75, true));
-            zombie.LootTable.Add(new LootItem(ItemByID(ITEM_ID_CARROT), 75, false));
+            zombie.LootTable.Add(new LootItem(ItemByID(ITEM_ID_CARROT), 33, false));
 
             Mob skeleton = new Mob(MOB_ID_SKELETON, "Skeleton", 7, 10, 5, 3, 3);
             skeleton.LootTable.Add(new LootItem(ItemByID(ITEM_ID_ARROW), 75, true));
-            skeleton.LootTable.Add(new LootItem(ItemByID(ITEM_ID_BONE), 75, false));
+            skeleton.LootTable.Add(new LootItem(ItemByID(ITEM_ID_BONE), 33, false));
 
             Mob caveSpider = new Mob(MOB_ID_CAVE_SPIDER, "Cave Spider", 20, 5, 40, 10, 10);
             caveSpider.LootTable.Add(new LootItem(ItemByID(ITEM_ID_SPIDER_EYE), 75, true));
@@ -113,8 +118,12 @@ namespace Engine
 
             Location wheatField = new Location(LOCATION_ID_WHEAT_FIELD, "Wheat field", "Fields and fields of wheat.");
             wheatField.MobLivingHere = MobByID(MOB_ID_SKELETON);
+            wheatField.MaterialAvailable = ItemByID(ITEM_ID_WHEAT);
 
             Location villageGate = new Location(LOCATION_ID_VILLAGE_GATE, "Village gate", "There are two massive iron golems standing guard.", ItemByID(ITEM_ID_ADVENTURER_PASS));
+
+            Location forest = new Location(LOCATION_ID_FOREST, "Forest", "A quiet forest with trees everywhere");
+            forest.MaterialAvailable = ItemByID(ITEM_ID_OAK_LOG);
 
             Location caveEntrance = new Location(LOCATION_ID_CAVE_ENTRANCE, "Cave entrance", "A dark cave entrance in the side of a mountain.");
 
@@ -138,11 +147,14 @@ namespace Engine
 
             clericGarden.LocationToSouth = clericHouse;
 
-            villageGate.LocationToEast = caveEntrance;
+            villageGate.LocationToEast = forest;
             villageGate.LocationToWest = villageCenter;
 
+            forest.LocationToNorth = caveEntrance;
+            forest.LocationToWest = villageGate;
+
             caveEntrance.LocationToEast = abandonedMineshaft;
-            caveEntrance.LocationToWest = villageGate;
+            caveEntrance.LocationToSouth = forest;
 
             abandonedMineshaft.LocationToWest = caveEntrance;
 
@@ -153,6 +165,7 @@ namespace Engine
             Locations.Add(clericGarden);
             Locations.Add(farmerHouse);
             Locations.Add(wheatField);
+            Locations.Add(forest);
             Locations.Add(caveEntrance);
             Locations.Add(abandonedMineshaft);
         }

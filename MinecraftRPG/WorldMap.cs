@@ -22,12 +22,13 @@ namespace MinecraftRPG
 
             SetImage(pic_0_2, "cleric_garden");
             SetImage(pic_1_2, "cleric_house");
+            SetImage(pic_1_4, "cave_entrance");
+            SetImage(pic_1_5, "mineshaft");
             SetImage(pic_2_0, "wheat_field");
             SetImage(pic_2_1, "farmer_house");
             SetImage(pic_2_2, "village_center");
             SetImage(pic_2_3, "village_gate");
             SetImage(pic_2_4, "forest");
-            SetImage(pic_2_5, "mineshaft");
             SetImage(pic_3_2, "home");
         }
 

@@ -48,6 +48,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CraftingTable.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CraftingTable.Designer.cs">
+      <DependentUpon>CraftingTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="MinecraftRPG.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -62,6 +68,9 @@
     <Compile Include="WorldMap.Designer.cs">
       <DependentUpon>WorldMap.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="CraftingTable.resx">
+      <DependentUpon>CraftingTable.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MinecraftRPG.resx">
       <DependentUpon>MinecraftRPG.cs</DependentUpon>
     </EmbeddedResource>
@@ -106,6 +115,12 @@
     <EmbeddedResource Include="Images\village_center.png" />
     <EmbeddedResource Include="Images\village_gate.png" />
     <EmbeddedResource Include="Images\wheat_field.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Images\undiscovered.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Images\cave_entrance.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

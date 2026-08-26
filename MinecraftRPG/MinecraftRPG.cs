@@ -20,7 +20,7 @@ namespace MinecraftRPG
             InitializeComponent();
 
             _player = new Player(20, 20, 5, 0);
-            _player.Inventory.Add(new InventoryItem(World.ItemByID(World.ITEM_ID_WOODEN_SWORD), 1));
+            _player.AddItemToInventory(World.ItemByID(World.ITEM_ID_WOODEN_SWORD));
             MoveTo(World.LocationByID(World.LOCATION_ID_HOME));
 
             UpdatePlayerStats();
@@ -64,6 +64,24 @@ namespace MinecraftRPG
 
             rtbLocation.Text = newLocation.Name + Environment.NewLine;
             rtbLocation.Text += newLocation.Description + Environment.NewLine;
+
+            if (newLocation.MaterialAvailable == World.ItemByID(World.ITEM_ID_OAK_LOG))
+            {
+                btnOakLog.Visible = true;
+            }
+            else
+            {
+                btnOakLog.Visible = false;
+            }
+
+            if (newLocation.MaterialAvailable == World.ItemByID(World.ITEM_ID_WHEAT))
+            {
+                btnWheat.Visible = true;
+            }
+            else
+            {
+                btnWheat.Visible = false;
+            }
 
             if (newLocation.QuestAvailableHere != null)
             {
@@ -140,18 +158,14 @@ namespace MinecraftRPG
                 }
 
                 cboWeapons.Visible = true;
-                cboConsumables.Visible = true;
                 btnUseWeapon.Visible = true;
-                btnUseConsumable.Visible = true;
             }
             else
             {
                 _currentMob = null;
 
                 cboWeapons.Visible = false;
-                cboConsumables.Visible = false;
                 btnUseWeapon.Visible = false;
-                btnUseConsumable.Visible = false;
             }
 
             UpdateInventoryListInUI();
@@ -265,6 +279,8 @@ namespace MinecraftRPG
                 cboConsumables.DisplayMember = "Name";
                 cboConsumables.ValueMember = "ID";
                 cboConsumables.SelectedIndex = 0;
+                cboConsumables.Visible = true;
+                btnUseConsumable.Visible = true;
             }
         }
 
@@ -378,6 +394,18 @@ namespace MinecraftRPG
             rtbMessages.Text += "You eat a " + consumable.Name + Environment.NewLine;
             ScrollToBottomOfMessages();
 
+            if (_player.CurrentLocation.MobLivingHere != null)
+            {
+                MobTurn();
+            }
+
+            UpdatePlayerStats();
+            UpdateInventoryListInUI();
+            UpdateConsumableListInUI();
+        }
+
+        private void MobTurn()
+        {
             int damageToPlayer = RandomNumberGenerator.NumberBetween(0, _currentMob.MaximumDamage);
             rtbMessages.Text += "The " + _currentMob.Name + " did " + damageToPlayer.ToString() + " points of damage." + Environment.NewLine;
             ScrollToBottomOfMessages();
@@ -390,12 +418,9 @@ namespace MinecraftRPG
 
                 MoveTo(World.LocationByID(World.LOCATION_ID_HOME));
                 _player.CurrentHitPoints = _player.MaximumHitPoints;
-                UpdatePlayerStats();
+                
             }
-
             UpdatePlayerStats();
-            UpdateInventoryListInUI();
-            UpdateConsumableListInUI();
         }
 
         private void ScrollToBottomOfMessages()
@@ -422,6 +447,41 @@ namespace MinecraftRPG
             WorldMap mapScreen = new WorldMap();
             mapScreen.StartPosition = FormStartPosition.CenterParent;
             mapScreen.ShowDialog(this); 
+        }
+
+        private void btnCraft_Click(object sender, EventArgs e)
+        {
+            CraftingTable craftingScreen = new CraftingTable();
+            craftingScreen.StartPosition = FormStartPosition.CenterParent;
+            craftingScreen.ShowDialog(this);
+        }
+
+        private void btnOakLog_Click(object sender, EventArgs e)
+        {
+            if (_player.CurrentLocation.MaterialAvailable.ID == World.ITEM_ID_OAK_LOG)
+            {
+                _player.AddItemToInventory(World.ItemByID(World.ITEM_ID_OAK_LOG));
+                UpdateInventoryListInUI();
+
+                if (_player.CurrentLocation.MobLivingHere != null)
+                {
+                    MobTurn();
+                }
+            }
+        }
+
+        private void btnWheat_Click(object sender, EventArgs e)
+        {
+            if (_player.CurrentLocation.MaterialAvailable.ID == World.ITEM_ID_WHEAT)
+            {
+                _player.AddItemToInventory(World.ItemByID(World.ITEM_ID_WHEAT));
+                UpdateInventoryListInUI();
+
+                if (_player.CurrentLocation.MobLivingHere != null)
+                {
+                    MobTurn();
+                }
+            }
         }
     }
 }

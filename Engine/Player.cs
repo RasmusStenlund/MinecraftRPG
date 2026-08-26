@@ -73,7 +73,10 @@ namespace Engine
         {
             foreach(QuestCompletionItem qci in quest.QuestCompletionItems)
             {
-                if (!Inventory.Exists(ii => ii.Details.ID == qci.Details.ID && ii.Quantity >= qci.Quantity)) ;
+                if (!Inventory.Exists(ii => ii.Details.ID == qci.Details.ID && ii.Quantity >= qci.Quantity))
+                {
+                    return false;
+                }
             }
 
             return true;
