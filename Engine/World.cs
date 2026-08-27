@@ -12,19 +12,23 @@ namespace Engine
         public static readonly List<Mob> Mobs = new List<Mob>();
         public static readonly List<Quest> Quests = new List<Quest>();
         public static readonly List<Location> Locations = new List<Location>();
+        public static readonly List<Recipe> Recipes = new List<Recipe>();
 
         public const int ITEM_ID_WOODEN_SWORD = 1;
         public const int ITEM_ID_ROTTEN_FLESH = 2;
         public const int ITEM_ID_CARROT = 3;
         public const int ITEM_ID_BONE = 4;
         public const int ITEM_ID_ARROW = 5;
-        public const int ITEM_ID_STONE_AXE = 6;
+        public const int ITEM_ID_BOW = 6;
         public const int ITEM_ID_GOLDEN_APPLE = 7;
         public const int ITEM_ID_SPIDER_EYE = 8;
         public const int ITEM_ID_STRING = 9;
         public const int ITEM_ID_ADVENTURER_PASS = 10;
         public const int ITEM_ID_OAK_LOG = 11;
         public const int ITEM_ID_WHEAT = 12;
+        public const int ITEM_ID_BREAD = 13;
+        public const int ITEM_ID_PLANK = 14;
+        public const int ITEM_ID_STICK = 15;
 
         public const int MOB_ID_ZOMBIE = 1;
         public const int MOB_ID_SKELETON = 2;
@@ -44,12 +48,20 @@ namespace Engine
         public const int LOCATION_ID_CAVE_ENTRANCE = 9;
         public const int LOCATION_ID_ABANDONED_MINESHAFT = 10;
 
+        public const int RECIPE_ID_BREAD = 1;
+        public const int RECIPE_ID_PLANK = 2;
+        public const int RECIPE_ID_STICK = 3;
+        public const int RECIPE_ID_BOW = 4;
+        public const int RECIPE_ID_WOODEN_SWORD = 5;
+
+
         static World()
         {
             PopulateItems();
             PopulateMobs();
             PopulateQuests();
             PopulateLocations();
+            PopulateRecipes();
         }
 
         private static void PopulateItems()
@@ -59,13 +71,16 @@ namespace Engine
             Items.Add(new Consumable(ITEM_ID_CARROT, "Carrot", "Carrots", 3));
             Items.Add(new Item(ITEM_ID_BONE, "Bone", "Bones"));
             Items.Add(new Item(ITEM_ID_ARROW, "Arrow", "Arrows"));
-            Items.Add(new Weapon(ITEM_ID_STONE_AXE, "Stone Axe", "Stone Axes", 3, 10));
+            Items.Add(new Weapon(ITEM_ID_BOW, "Bow", "Bows", 3, 10));
             Items.Add(new Consumable(ITEM_ID_GOLDEN_APPLE, "Golden Apple", "Golden Apples", 15));
             Items.Add(new Item(ITEM_ID_SPIDER_EYE, "Spider Eye", "Spider Eyes"));
             Items.Add(new Item(ITEM_ID_STRING, "String", "String"));
             Items.Add(new Item(ITEM_ID_ADVENTURER_PASS, "Adventurer Pass", "Adventurer Passes"));
             Items.Add(new Item(ITEM_ID_OAK_LOG, "Oak log", "Oak logs"));
             Items.Add(new Item(ITEM_ID_WHEAT, "Wheat", "Wheat"));
+            Items.Add(new Consumable(ITEM_ID_BREAD, "Bread", "Bread", 7));
+            Items.Add(new Item(ITEM_ID_PLANK, "Plank", "Planks"));
+            Items.Add(new Item(ITEM_ID_STICK, "Stick", "Sticks"));
         }
 
         private static void PopulateMobs()
@@ -74,13 +89,13 @@ namespace Engine
             zombie.LootTable.Add(new LootItem(ItemByID(ITEM_ID_ROTTEN_FLESH), 75, true));
             zombie.LootTable.Add(new LootItem(ItemByID(ITEM_ID_CARROT), 33, false));
 
-            Mob skeleton = new Mob(MOB_ID_SKELETON, "Skeleton", 7, 10, 5, 3, 3);
+            Mob skeleton = new Mob(MOB_ID_SKELETON, "Skeleton", 7, 10, 5, 5, 5);
             skeleton.LootTable.Add(new LootItem(ItemByID(ITEM_ID_ARROW), 75, true));
             skeleton.LootTable.Add(new LootItem(ItemByID(ITEM_ID_BONE), 33, false));
 
-            Mob caveSpider = new Mob(MOB_ID_CAVE_SPIDER, "Cave Spider", 20, 5, 40, 10, 10);
+            Mob caveSpider = new Mob(MOB_ID_CAVE_SPIDER, "Cave Spider", 10, 20, 10, 10, 10);
             caveSpider.LootTable.Add(new LootItem(ItemByID(ITEM_ID_SPIDER_EYE), 75, true));
-            caveSpider.LootTable.Add(new LootItem(ItemByID(ITEM_ID_STRING), 25, false));
+            caveSpider.LootTable.Add(new LootItem(ItemByID(ITEM_ID_STRING), 50, false));
 
             Mobs.Add(zombie);
             Mobs.Add(skeleton);
@@ -168,6 +183,32 @@ namespace Engine
             Locations.Add(forest);
             Locations.Add(caveEntrance);
             Locations.Add(abandonedMineshaft);
+        }
+
+        private static void PopulateRecipes()
+        {
+            Recipe breadRecipe = new Recipe(RECIPE_ID_BREAD, "Bread", ItemByID(ITEM_ID_BREAD));
+            breadRecipe.AddIngredient(ItemByID(ITEM_ID_WHEAT), 3);
+
+            Recipe plankRecipe = new Recipe(RECIPE_ID_PLANK, "Plank", ItemByID(ITEM_ID_PLANK));
+            plankRecipe.AddIngredient(ItemByID(ITEM_ID_OAK_LOG), 1);
+
+            Recipe stickRecipe = new Recipe(RECIPE_ID_STICK, "Stick", ItemByID(ITEM_ID_STICK));
+            stickRecipe.AddIngredient(ItemByID(ITEM_ID_PLANK), 2);
+
+            Recipe bowRecipe = new Recipe(RECIPE_ID_BOW, "Bow", ItemByID(ITEM_ID_BOW));
+            bowRecipe.AddIngredient(ItemByID(ITEM_ID_STICK), 3);
+            bowRecipe.AddIngredient(ItemByID(ITEM_ID_STRING), 3);
+
+            Recipe woodenSwordRecipe = new Recipe(RECIPE_ID_WOODEN_SWORD, "Wooden Sword", ItemByID(ITEM_ID_WOODEN_SWORD));
+            woodenSwordRecipe.AddIngredient(ItemByID(ITEM_ID_PLANK), 2);
+            woodenSwordRecipe.AddIngredient(ItemByID(ITEM_ID_STICK), 1);
+
+            Recipes.Add(breadRecipe);
+            Recipes.Add(plankRecipe);
+            Recipes.Add(stickRecipe);
+            Recipes.Add(bowRecipe);
+            Recipes.Add(woodenSwordRecipe);
         }
 
         public static Item ItemByID(int id)

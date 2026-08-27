@@ -28,21 +28,22 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.lbRecipes = new System.Windows.Forms.ListBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
-            this.btnCraft = new System.Windows.Forms.Button();
+            this.rtbRecipeDetails = new System.Windows.Forms.RichTextBox();
+            this.btnConfirmCraft = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // listBox1
+            // lbRecipes
             // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.ItemHeight = 20;
-            this.listBox1.Location = new System.Drawing.Point(12, 42);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(295, 344);
-            this.listBox1.TabIndex = 0;
+            this.lbRecipes.FormattingEnabled = true;
+            this.lbRecipes.ItemHeight = 20;
+            this.lbRecipes.Location = new System.Drawing.Point(12, 42);
+            this.lbRecipes.Name = "lbRecipes";
+            this.lbRecipes.Size = new System.Drawing.Size(295, 344);
+            this.lbRecipes.TabIndex = 0;
+            this.lbRecipes.SelectedIndexChanged += new System.EventHandler(this.lbRecipes_SelectedIndexChanged);
             // 
             // label1
             // 
@@ -62,36 +63,36 @@
             this.label2.TabIndex = 2;
             this.label2.Text = "Recipe Details";
             // 
-            // richTextBox1
+            // rtbRecipeDetails
             // 
-            this.richTextBox1.Location = new System.Drawing.Point(341, 42);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.ReadOnly = true;
-            this.richTextBox1.Size = new System.Drawing.Size(358, 284);
-            this.richTextBox1.TabIndex = 3;
-            this.richTextBox1.Text = "";
+            this.rtbRecipeDetails.Location = new System.Drawing.Point(341, 42);
+            this.rtbRecipeDetails.Name = "rtbRecipeDetails";
+            this.rtbRecipeDetails.ReadOnly = true;
+            this.rtbRecipeDetails.Size = new System.Drawing.Size(358, 284);
+            this.rtbRecipeDetails.TabIndex = 3;
+            this.rtbRecipeDetails.Text = "";
             // 
-            // btnCraft
+            // btnConfirmCraft
             // 
-            this.btnCraft.Enabled = false;
-            this.btnCraft.Location = new System.Drawing.Point(442, 340);
-            this.btnCraft.Name = "btnCraft";
-            this.btnCraft.Size = new System.Drawing.Size(160, 35);
-            this.btnCraft.TabIndex = 4;
-            this.btnCraft.Text = "Missing Materials";
-            this.btnCraft.UseVisualStyleBackColor = true;
-            this.btnCraft.Click += new System.EventHandler(this.btnCraft_Click);
+            this.btnConfirmCraft.Enabled = false;
+            this.btnConfirmCraft.Location = new System.Drawing.Point(442, 340);
+            this.btnConfirmCraft.Name = "btnConfirmCraft";
+            this.btnConfirmCraft.Size = new System.Drawing.Size(160, 35);
+            this.btnConfirmCraft.TabIndex = 4;
+            this.btnConfirmCraft.Text = "Missing Materials";
+            this.btnConfirmCraft.UseVisualStyleBackColor = true;
+            this.btnConfirmCraft.Click += new System.EventHandler(this.btnCraft_Click);
             // 
             // CraftingTable
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(711, 401);
-            this.Controls.Add(this.btnCraft);
-            this.Controls.Add(this.richTextBox1);
+            this.Controls.Add(this.btnConfirmCraft);
+            this.Controls.Add(this.rtbRecipeDetails);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.listBox1);
+            this.Controls.Add(this.lbRecipes);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "CraftingTable";
@@ -104,10 +105,10 @@
 
         #endregion
 
-        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.ListBox lbRecipes;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.RichTextBox richTextBox1;
-        private System.Windows.Forms.Button btnCraft;
+        private System.Windows.Forms.RichTextBox rtbRecipeDetails;
+        private System.Windows.Forms.Button btnConfirmCraft;
     }
 }

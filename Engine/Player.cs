@@ -19,6 +19,7 @@ namespace Engine
         public Weapon CurrentWeapon { get; set; }
         public List<InventoryItem> Inventory { get; set; }
         public List<PlayerQuest> Quests { get; set; }
+        public List<int> LocationsVisited { get; set; }
 
         public Player(int currentHitPoints, int maximumHitPoints, int emeralds, int experiencePoints) : base(currentHitPoints, maximumHitPoints)
         {
@@ -26,6 +27,7 @@ namespace Engine
             ExperiencePoints = experiencePoints;
             Inventory = new List<InventoryItem>();
             Quests = new List<PlayerQuest>();
+            LocationsVisited = new List<int>();
         }
 
         public void AddExperiencePoints(int experiencePointsToAdd)
@@ -109,6 +111,16 @@ namespace Engine
             }
         }
 
+        public void RemoveItemFromInventory(Item itemToRemove, int quantity)
+        {
+            InventoryItem item = Inventory.SingleOrDefault(ii => ii.Details.ID == itemToRemove.ID);
+
+            if (item != null)
+            {
+                item.Quantity -= quantity;
+            }
+        }
+
         public void MarkQuestCompleted(Quest quest)
         {
             PlayerQuest playerQuest = Quests.SingleOrDefault(pq => pq.Details.ID == quest.ID);
@@ -117,6 +129,26 @@ namespace Engine
             {
                 playerQuest.IsCompleted = true;
             }
+        }
+
+        public bool CraftRecipe(Recipe recipe)
+        {
+            foreach (CraftingIngredient craftingIngredient in recipe.Ingredients)
+            {
+                InventoryItem playerItem = Inventory.SingleOrDefault(ii => ii.Details.ID == craftingIngredient.Details.ID);
+                if (playerItem == null || playerItem.Quantity < craftingIngredient.Quantity)
+                {
+                    return false;
+                }
+            }
+
+            foreach (CraftingIngredient craftingIngredient in recipe.Ingredients)
+            {
+                RemoveItemFromInventory(craftingIngredient.Details, craftingIngredient.Quantity);
+            }
+            AddItemToInventory(recipe.OutputItem);
+
+            return true;
         }
     }
 }

@@ -57,6 +57,11 @@ namespace MinecraftRPG
 
             _player.CurrentLocation = newLocation;
 
+            if (!_player.LocationsVisited.Contains(newLocation.ID))
+            {
+                _player.LocationsVisited.Add(_player.CurrentLocation.ID);
+            }
+
             btnNorth.Visible = (newLocation.LocationToNorth != null);
             btnSouth.Visible = (newLocation.LocationToSouth != null);
             btnEast.Visible = (newLocation.LocationToEast != null);
@@ -174,7 +179,7 @@ namespace MinecraftRPG
             UpdateConsumableListInUI();
         }
 
-        private void UpdateInventoryListInUI()
+        public void UpdateInventoryListInUI()
         {
             dgvInventory.RowHeadersVisible = false;
 
@@ -213,7 +218,7 @@ namespace MinecraftRPG
             }
         }
 
-        private void UpdateWeaponListInUI()
+        public void UpdateWeaponListInUI()
         {
             List<Weapon> weapons = new List<Weapon>();
 
@@ -253,7 +258,7 @@ namespace MinecraftRPG
             }
         }
 
-        private void UpdateConsumableListInUI()
+        public void UpdateConsumableListInUI()
         {
             List<Consumable> consumables = new List<Consumable>();
 
@@ -287,6 +292,21 @@ namespace MinecraftRPG
         private void btnUseWeapon_Click(object sender, EventArgs e)
         {
             Weapon currentWeapon = (Weapon)cboWeapons.SelectedItem;
+
+            if (currentWeapon.ID == World.ItemByID(World.ITEM_ID_BOW).ID)
+            {
+                InventoryItem arrows = _player.Inventory.SingleOrDefault(ii => ii.Details.ID == World.ITEM_ID_ARROW);
+
+                if ( arrows == null || arrows.Quantity <= 0)
+                {
+                    AddMessage("You try to fire your bow, but you are out of arrows!");
+                    return;
+                }
+
+                _player.RemoveItemFromInventory(World.ItemByID(World.ITEM_ID_ARROW), 1);
+                UpdateInventoryListInUI();
+            }
+
             int damageToMob = RandomNumberGenerator.NumberBetween(currentWeapon.MinimumDamage, currentWeapon.MaximumDamage);
 
             _currentMob.CurrentHitPoints -= damageToMob;
@@ -429,7 +449,7 @@ namespace MinecraftRPG
             rtbMessages.ScrollToCaret();
         }
 
-        private void UpdatePlayerStats()
+        public void UpdatePlayerStats()
         {
             lblHitPoints.Text = _player.CurrentHitPoints.ToString();
             lblEmeralds.Text = _player.Emeralds.ToString();
@@ -444,14 +464,14 @@ namespace MinecraftRPG
 
         private void btnMap_Click(object sender, EventArgs e)
         {
-            WorldMap mapScreen = new WorldMap();
+            WorldMap mapScreen = new WorldMap(_player);
             mapScreen.StartPosition = FormStartPosition.CenterParent;
             mapScreen.ShowDialog(this); 
         }
 
         private void btnCraft_Click(object sender, EventArgs e)
         {
-            CraftingTable craftingScreen = new CraftingTable();
+            CraftingTable craftingScreen = new CraftingTable(_player, this);
             craftingScreen.StartPosition = FormStartPosition.CenterParent;
             craftingScreen.ShowDialog(this);
         }
@@ -482,6 +502,12 @@ namespace MinecraftRPG
                     MobTurn();
                 }
             }
+        }
+
+        public void AddMessage(string message)
+        {
+            rtbMessages.Text += message + Environment.NewLine;
+            ScrollToBottomOfMessages();
         }
     }
 }
